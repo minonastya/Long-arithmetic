@@ -15,7 +15,7 @@ int longNum_read(number **num, char first_el)
 {
   int check = 0; 
   if (first_el == '-') ((*num)->sign = -1);
-  else if (first_el < '0' && first_el > '9' && first_el != '-') (check = 1);
+  else if ((first_el < '0' || first_el > '9') && first_el != '-') (check = 1);
   else list_add(&(*num)->head, (int)first_el - (int)'0');
     
   while (1)
@@ -25,7 +25,11 @@ int longNum_read(number **num, char first_el)
     if (digit >= '0' && digit <= '9') (list_add(&(*num)->head, (int)digit - (int)('0')));
     else if ((int)digit == 10 || digit == ' ')
     {
-      if ((int)digit == 10) break;
+      if ((int)digit == 10) 
+      {
+        return check;
+        break;
+      }
       else 
       { 
         scanf("%c", &digit);
@@ -37,8 +41,8 @@ int longNum_read(number **num, char first_el)
             
         }
       }
-     return check; 
     }
+    else check = 1;
   }
   return check;
 }
