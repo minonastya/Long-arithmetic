@@ -176,12 +176,18 @@ void longNum_multiplication(number **num1, number **num2, number **res)
 int input(number **num1, number **num2, number **res)
 {
   char op, first_el, enter;
+  int k = 0; 
   scanf("%c", &first_el);
-  longNum_read(num1, first_el);
+  if (longNum_read(num1, first_el)) k++;
   scanf("%c", &op);
   scanf("%c", &enter);
   scanf("%c", &first_el);
-  longNum_read(num2, first_el);
+  if (longNum_read(num2, first_el)) k++;
+   if (k)
+  {
+    printf("Unknown command\n");
+    return 1;
+  }
 
   if (op == '+' || op == '-')
   {
@@ -197,7 +203,7 @@ int input(number **num1, number **num2, number **res)
       if (op == '-') longNum_addition(num1, num2, res);
       else longNum_substraction(num1, num2, res);
     }
-    (*res)->sign *= (*num2)->sign;
+    (*res)->sign *= (*num1)->sign;
   }
   else
   {
